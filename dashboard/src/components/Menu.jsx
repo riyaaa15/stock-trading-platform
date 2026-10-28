@@ -9,9 +9,9 @@ const Menu = () => {
     setSelectedMenu(index);
   };
 
-  const handleProfileClick = (index) => {
-    setIsProfileDropdownOpen = !isProfileDropdownOpen;
-  };
+ const handleProfileClick = () => {
+  setIsProfileDropdownOpen(!isProfileDropdownOpen);
+};
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
