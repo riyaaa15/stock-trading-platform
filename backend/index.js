@@ -86,6 +86,18 @@ app.post("/newOrder", async (req, res) => {
     if(!holding) {
       return res.status(400).send("Stock not in holdings");
     }
+
+    if(holding.qty < req.body.qty) {
+      return res.status(400).send("Not enough quantity to sell");
+    }
+
+    holding.qty -= req.body.qty;
+
+    if(holding.qty === 0) {
+      await HoldingsModel.deleteOne({ _id: holding._id });
+    } else {
+      await holding.save();
+    }
   };
 
   await newOrder.save();

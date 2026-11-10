@@ -11,13 +11,19 @@ const SellActionWindow = ({ uid }) => {
   const generalContext = useContext(GeneralContext);
 
   const handleSellClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: "SELL",
-    });
-    generalContext.closeSellWindow();
+    axios
+      .post("http://localhost:3002/newOrder", {
+        name: uid,
+        qty: stockQuantity,
+        price: stockPrice,
+        mode: "SELL",
+      })
+      .then(() => {
+        generalContext.closeSellWindow();
+      })
+      .catch((err) => {
+        alert(err.response?.data || "Something went wrong");
+      });
   };
 
   const handleCancelClick = () => {
