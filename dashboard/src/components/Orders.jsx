@@ -40,10 +40,6 @@ const Orders = () => {
           </tbody>
         </table>
       </div>
-
-        {/* <Link to="/" className="btn">
-          Get started
-        </Link> */}
     </>
   );
 };

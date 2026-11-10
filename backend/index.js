@@ -69,6 +69,25 @@ app.post("/newOrder", async (req, res) => {
     mode: req.body.mode,
   });
 
+  if (req.body.mode === "BUY") {
+    await new HoldingsModel({
+      name: req.body.name,
+      qty: req.body.qty,
+      avg: req.body.price,
+      price: req.body.price,
+      net: "0.00%",
+      day: "0.00%",
+    }).save();
+  };
+
+  if(req.body.mode === "SELL") {
+    const holding = await HoldingsModel.findOne({ name :  req.body.name });
+
+    if(!holding) {
+      return res.status(400).send("Stock not in holdings");
+    }
+  };
+
   await newOrder.save();
 
   res.send("Order saved!");
