@@ -44,6 +44,43 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "All fields are required", success: false });
+    }
+
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Incorrect password or email", success: false });
+    }
+
+    const auth = await bcrypt.compare(password, user.password);
+    if (!auth) {
+      return res
+        .status(400)
+        .json({ message: "Incorrect password or email", success: false });
+    }
+
+    const token = createSecretToken(user._id);
+    res.status(200).json({
+      message: "User logged in successfully",
+      success: true,
+      token,
+      user: { id: user._id, username: user.username, email: user.email },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong", success: false });
+  }
+});
+
 app.get("/allHoldings", async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
   res.json(allHoldings);
