@@ -7,6 +7,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const { UserModel } = require("./models/UserModel");
 const { createSecretToken } = require("./utils/SecretToken");
+const { verifyToken } = require("./middleware/AuthMiddleware");
 
 const { HoldingsModel } = require("./models/HoldingsModel");
 const { PositionsModel } = require("./models/PositionsModel");
@@ -81,7 +82,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/allHoldings", async (req, res) => {
+app.get("/allHoldings", verifyToken, async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
   res.json(allHoldings);
 });
