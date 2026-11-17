@@ -87,12 +87,12 @@ app.get("/allHoldings", verifyToken, async (req, res) => {
   res.json(allHoldings);
 });
 
-app.get("/allPositions", async (req, res) => {
+app.get("/allPositions", verifyToken, async (req, res) => {
   let allPositions = await PositionsModel.find({});
   res.json(allPositions);
 });
 
-app.post("/newOrder", async (req, res) => {
+app.post("/newOrder", verifyToken, async (req, res) => {
   let newOrder = new OrdersModel({
     name: req.body.name,
     qty: req.body.qty,
@@ -136,7 +136,7 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order saved!");
 });
 
-app.get("/allOrders", async (req, res) => {
+app.get("/allOrders", verifyToken, async (req, res) => {
   let allOrders = await OrdersModel.find({});
   res.json(allOrders);
 });

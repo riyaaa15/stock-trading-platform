@@ -12,12 +12,18 @@ const SellActionWindow = ({ uid }) => {
 
   const handleSellClick = () => {
     axios
-      .post("http://localhost:3002/newOrder", {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
-        mode: "SELL",
-      })
+      .post(
+        "http://localhost:3002/newOrder",
+        {
+          name: uid,
+          qty: stockQuantity,
+          price: stockPrice,
+          mode: "SELL",
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        },
+      )
       .then(() => {
         generalContext.closeSellWindow();
       })

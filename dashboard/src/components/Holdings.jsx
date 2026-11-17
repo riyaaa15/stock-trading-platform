@@ -6,10 +6,16 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/allHoldings").then((res) => {
-      console.log(res.data);
-      setAllHoldings(res.data);
-    })
+    axios
+      .get("http://localhost:3002/allHoldings", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setAllHoldings(res.data);
+      });
   }, []);
 
   return (
@@ -25,10 +31,13 @@ const Holdings = () => {
               <th>Avg. sot</th>
               <th>LTP</th>
               <th>Cur. val</th>
-              <th>P&L</th>
+              <th>P&amp;L</th>
               <th>Net chg.</th>
               <th>Day chg.</th>
             </tr>
+          </thead>
+
+          <tbody>
             {allHoldings.map((stock, index) => {
               const curValue = stock.price * stock.qty;
               const isProfit = curValue - stock.avg * stock.qty >= 0.0;
@@ -50,8 +59,7 @@ const Holdings = () => {
                 </tr>
               );
             })}
-          </thead>
-          <tbody></tbody>
+          </tbody>
         </table>
       </div>
 

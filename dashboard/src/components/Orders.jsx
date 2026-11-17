@@ -4,19 +4,24 @@ import axios from "axios";
 const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
 
-    useEffect(() => {
-    axios.get("http://localhost:3002/allOrders").then((res) => {
-      console.log(res.data);
-      setAllOrders(res.data);
-    });
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/allOrders", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setAllOrders(res.data);
+      });
   }, []);
-
 
   return (
     <>
-    <h3 className="title">Orders ({allOrders.length})</h3>
-        {allOrders.length === 0 && <p>You haven't placed any orders today</p>}
-      
+      <h3 className="title">Orders ({allOrders.length})</h3>
+      {allOrders.length === 0 && <p>You haven't placed any orders today</p>}
+
       <div className="order-table">
         <table>
           <thead>
