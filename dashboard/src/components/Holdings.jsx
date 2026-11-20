@@ -1,10 +1,26 @@
-import React from "react";
-import { holdings } from "../data/data";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+// import { holdings } from "../data/data";
 
 const Holdings = () => {
+  const [allHoldings, setAllHoldings] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/allHoldings", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setAllHoldings(res.data);
+      });
+  }, []);
+
   return (
     <>
-      <h3 className="title">Holdings ({holdings.length})</h3>
+      <h3 className="title">Holdings ({allHoldings.length})</h3>
 
       <div className="order-table">
         <table>
@@ -15,11 +31,14 @@ const Holdings = () => {
               <th>Avg. sot</th>
               <th>LTP</th>
               <th>Cur. val</th>
-              <th>P&L</th>
+              <th>P&amp;L</th>
               <th>Net chg.</th>
               <th>Day chg.</th>
             </tr>
-            {holdings.map((stock, index) => {
+          </thead>
+
+          <tbody>
+            {allHoldings.map((stock, index) => {
               const curValue = stock.price * stock.qty;
               const isProfit = curValue - stock.avg * stock.qty >= 0.0;
               const profClass = isProfit ? "profit" : "loss";
@@ -28,7 +47,7 @@ const Holdings = () => {
               return (
                 <tr key={index}>
                   <td>{stock.name}</td>
-                  <td>{stock.name}</td>
+                  <td>{stock.qty}</td>
                   <td>{stock.avg.toFixed(2)}</td>
                   <td>{stock.price.toFixed(2)}</td>
                   <td>{curValue.toFixed(2)}</td>
@@ -40,8 +59,7 @@ const Holdings = () => {
                 </tr>
               );
             })}
-          </thead>
-          <tbody></tbody>
+          </tbody>
         </table>
       </div>
 
