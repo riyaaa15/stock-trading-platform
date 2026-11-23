@@ -841,3 +841,22 @@ hr {
 .action:hover {
   background-color: rgb(212, 212, 212);
 }
+
+.logout-button {
+  margin-left: 15px;
+  padding: 8px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  color: #444;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+   background: #fff0f0;
+  color: #e53935;
+  border-color: #ffcaca;
+}
