@@ -104,7 +104,7 @@ const handleLogoutBtn = () => {
           <div className="avatar">ZU</div>
           <p className="username">USERID</p>
         </div>
-        <div className="logout-button" onClick={handleLogoutBtn}>Logout</div>
+        <button className="logout-button" onClick={handleLogoutBtn}>Logout</button>
       </div>
     </div>
   );
