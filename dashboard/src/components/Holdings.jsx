@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
 // import { holdings } from "../data/data";
+import { API_URL } from "../config";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/allHoldings", {
+      .get(`${API_URL}/allHoldings`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

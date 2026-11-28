@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Signup = () => {
   const [inputValue, setInputValue] = useState({
@@ -21,7 +22,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await axios.post("http://localhost:3002/signup", inputValue);
+        const res = await axios.post(`${API_URL}/signup`, inputValue);
         localStorage.setItem("token", res.data.token);
         navigate("/");
       } catch (err) {

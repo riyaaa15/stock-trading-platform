@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
@@ -13,11 +14,11 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3002/login", inputValue);
+      const res = await axios.post(`${API_URL}/login`, inputValue);
       localStorage.setItem("token", res.data.token);
       navigate("/");
     } catch (err) {

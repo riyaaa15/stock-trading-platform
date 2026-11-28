@@ -44,7 +44,7 @@ A full-stack stock trading platform clone inspired by Zerodha, built for learnin
 3. Create a `backend/.env` file:
 
         MONGO_URL=your_mongodb_connection_string
-        TOKEN_KEY=any_long_random_secret
+        JWT_SECRET=any_long_random_secret
 
 4. Start the backend (runs on http://localhost:3002):
 

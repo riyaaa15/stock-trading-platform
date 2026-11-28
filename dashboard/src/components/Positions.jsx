@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import { positions } from "../data/data";
+import { API_URL } from "../config";
 
 const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/allPositions", {
+      .get(`${API_URL}/allPositions`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
